@@ -38,9 +38,8 @@ ffmpeg 说明：
 
 ## 3. 使用方法
 
-## 🚀 使用方式
 
-### 方式一：直接使用（面向普通用户）(前往Releases下载)
+### 方式一：直接使用（面向普通用户）
 如果您拿到的是打包好的 `MusicTool.exe` 文件，请按以下步骤操作：
 
 1. **启动软件**：双击 `MusicTool.exe` 即可打开界面（无需安装任何环境）。
@@ -50,15 +49,16 @@ ffmpeg 说明：
 5. **查看结果**：转换完成后会弹出结果窗口，点击“打开输出目录”即可查看转换好的音频文件。
 
 > **⚠️ 避坑提示**：
-> 1. **首次打开慢**：双击后可能需要等待 2-5 秒才会弹出界面，请耐心等待。
-> 2. **杀毒软件误报**：由于是单文件打包程序，部分杀毒软件（360/火绒等）可能会将其误报。这是正常现象，请添加信任即可。
+> 1. **无需额外配置**：软件已内置转码引擎，您无需在电脑上单独安装 FFmpeg。
+> 2. **首次打开慢**：双击后可能需要等待 2-5 秒才会弹出界面，请耐心等待。
+> 3. **杀毒软件误报**：由于是单文件打包程序，部分杀毒软件（360/火绒等）可能会将其误报。这是正常现象，请添加信任即可。
 
 ---
 
 ### 方式二：源码运行（面向开发者）
-本仓库已为您准备好了开箱即用的环境（**已将 `ffmpeg.exe` 放置在根目录**）：
+本仓库已为您准备好了开箱即用的环境，**无需在本地额外配置 FFmpeg 系统环境**（转码将由内置的 `imageio-ffmpeg` 库自动接管）。
 
-**📦 极速启动**：您克隆或下载源码后，**无需配置任何系统环境变量**，直接双击 `run.bat` 即可自动安装依赖并启动图形界面。
+**📦 极速启动**：您克隆或下载源码后，直接双击 `run.bat` 即可自动安装依赖并启动图形界面。
 
 或者手动在终端执行：
 ```bash
@@ -67,26 +67,6 @@ pip install -e . ncmdump-py standard-imghdr pycryptodome -i https://pypi.tuna.ts
 
 # 2. 启动图形界面
 python -m music_toolkit
-
-## 4. CLI 示例
-
-安装后可使用 `music-toolkit` 命令：
-
-```bash
-music-toolkit --help
-music-toolkit detect "D:/music/a.wav"
-music-toolkit info "D:/music/a.flac"
-music-toolkit convert "D:/music/a.wav" "D:/music/out/a.mp3"
-music-toolkit scan "D:/music" --recursive --with-metadata
-```
-
-- `detect`：输出格式名与支持级别；无法识别时退出码为 1。
-- `info`：识别格式并以 JSON 输出时长、码率、标签。
-- `convert`：包装成单 Job，走 `TaskService.run_batch`。
-- `scan`：展开文件夹并逐项输出识别结果。
-
-所有命令都通过 `services.app_factory.bootstrap_app()` 获取依赖。
-
 ## 5. GUI 使用
 
 - **添加文件 / 添加文件夹**：支持多选；也可以把文件或文件夹拖到窗口。
